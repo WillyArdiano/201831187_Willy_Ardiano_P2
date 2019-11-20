@@ -1,6 +1,7 @@
 
 package proyecto2_lfydp;
 
+import proyecto2_lfydp.Backend.Analizador;
 import proyecto2_lfydp.Frontend.Principal;
 
 
@@ -10,6 +11,7 @@ public class Main {
         
         Principal principal = new Principal();
         principal.setVisible(true);
+        Analizador analizador = new Analizador();
        
     }
     

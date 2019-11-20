@@ -8,6 +8,7 @@ package proyecto2_lfydp.Frontend;
 import java.io.File;
 import java.io.IOException;
 import javax.swing.JFileChooser;
+import proyecto2_lfydp.Backend.Analizador;
 import proyecto2_lfydp.Backend.ManejadorDeArchivos;
 
 /**
@@ -132,6 +133,8 @@ public class Principal extends javax.swing.JFrame {
         try {
             texto = manejadorDeArchivos.extraerTexto(archivo);
             paneText.setText(texto);
+            Analizador analizador = new Analizador();
+            analizador.analizadorLexicoRun(texto);
         } catch (IOException e) {
         }
         
