@@ -3,7 +3,7 @@ package proyecto2_lfydp.Backend;
 
 public class Estado {
     
-    public static final int S0=-1;
+    public static final int S0=0;
     public static final int S1=1;
     public static final int S2=2;
     public static final int S3=3;

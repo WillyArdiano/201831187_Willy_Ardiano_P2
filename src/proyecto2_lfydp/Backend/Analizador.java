@@ -14,14 +14,13 @@ public class Analizador {
             
             int apuntador;
             
-            int [][] matriz = new int[11][16];
+            int [][] matriz = new int[11][17];
             matriz[0][0]=Estado.S1;
             matriz[2][0]=Estado.S4;
             matriz[3][0]=Estado.S8;
             matriz[5][0]=Estado.S5;
             matriz[6][0]=Estado.S11;
             matriz[9][0]=Estado.S16;
-            matriz[10][0]=Estado.S17;
             matriz[0][1]=Estado.S1;
             matriz[1][1]=Estado.S2;
             matriz[0][2]=Estado.S3;
@@ -37,6 +36,7 @@ public class Analizador {
             matriz[8][12]=Estado.S13;
             matriz[7][13]=Estado.S14;
             matriz[6][14]=Estado.S15;
+            matriz[9][0]=Estado.S16;
             
 //            for (int i = 0; i < 11; i++) {
 //                for (int j = 0; j < 16; j++) {
@@ -52,19 +52,20 @@ public class Analizador {
             boolean termino = false;
             for (int i = 0; i < texto.length(); i++) {
                 String car = String.valueOf(texto.charAt(i));
+                String carSig = String.valueOf(texto.charAt(i+1));
                 System.out.println("ANALIZANDO: "+car);
                 int tipo = verificador.verificarCaracter(car);
                 if (tipo==Lenguaje.EPSILON&&token.equals("")){
                     apuntador=Estado.S0;
-                }else if(tipo==Lenguaje.EPSILON){
-                    tokens.add(car);
-                    tipos.add(verificador.verificarTipo(apuntador));
+                }else if(tipo==Lenguaje.EPSILON|tipo==Lenguaje.AGRUPACION){
+                    tokens.add(token);
+                    tipos.add(verificador.verificarTipo(apuntador,token));
                     apuntador=Estado.S0;                    
                     token="";
+                    System.out.println("TERMINO TOKEN");
                 }else{
                    token+=car;
                    apuntador=matriz[tipo][apuntador];
-                    System.out.println("PASO");
                 }
             }
             

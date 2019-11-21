@@ -10,14 +10,16 @@ public class Verificador {
             return Lenguaje.NUMERO;
         }else if(esPunto(caracter)){
             return Lenguaje.PUNTO;
-        }if(esLetra(caracter)){
+        }else if(esLetra(caracter)){
             return Lenguaje.LETRA;            
-        }if(esEpsilon(caracter)){
+        }else if(esEpsilon(caracter)){
             return Lenguaje.EPSILON;            
-        }if(esDiagonal(caracter)){
+        }else if(esDiagonal(caracter)){
             return Lenguaje.DIAGONAL;            
-        }if(esAsterisco(caracter)){
+        }else if(esAsterisco(caracter)){
             return Lenguaje.ASTERISCO;            
+        }else if(esAgrupacion(caracter)){
+            return Lenguaje.AGRUPACION;            
         }else{
             System.out.println("NO ES NADA");
             return Lenguaje.CARACTER_FUERA_LENGUAJE;
@@ -42,7 +44,7 @@ public class Verificador {
     }
     
     public boolean esLetra(String caracter){
-        if(caracter.equals("a")|caracter.equals("b")|caracter.equals("c")|caracter.equals("d")|caracter.equals("e")|caracter.equals("f")|caracter.equals("g")|caracter.equals("h")|caracter.equals("i")|caracter.equals("j")|caracter.equals("k")|caracter.equals("l")|caracter.equals("m")|caracter.equals("n")|caracter.equals("o")|caracter.equals("p")|caracter.equals("q")|caracter.equals("r")|caracter.equals("s")|caracter.equals("t")|caracter.equals("u")|caracter.equals("v")|caracter.equals("w")|caracter.equals("x")|caracter.equals("y")|caracter.equals("z")){
+        if(caracter.equals("a")|caracter.equals("b")|caracter.equals("c")|caracter.equals("d")|caracter.equals("e")|caracter.equals("f")|caracter.equals("g")|caracter.equals("h")|caracter.equals("i")|caracter.equals("j")|caracter.equals("k")|caracter.equals("l")|caracter.equals("m")|caracter.equals("n")|caracter.equals("o")|caracter.equals("p")|caracter.equals("q")|caracter.equals("r")|caracter.equals("s")|caracter.equals("t")|caracter.equals("u")|caracter.equals("v")|caracter.equals("w")|caracter.equals("x")|caracter.equals("y")|caracter.equals("z")|caracter.equals("A")|caracter.equals("B")|caracter.equals("C")|caracter.equals("D")|caracter.equals("E")|caracter.equals("F")|caracter.equals("G")|caracter.equals("H")|caracter.equals("I")|caracter.equals("J")|caracter.equals("K")|caracter.equals("L")|caracter.equals("M")|caracter.equals("N")|caracter.equals("O")|caracter.equals("P")|caracter.equals("Q")|caracter.equals("R")|caracter.equals("S")|caracter.equals("T")|caracter.equals("U")|caracter.equals("V")|caracter.equals("W")|caracter.equals("X")|caracter.equals("Y")|caracter.equals("Z")){
             return true;
         }else{
             return false;
@@ -89,23 +91,23 @@ public class Verificador {
         }
     }
     
-    public boolean esBoleano(String caracter){
-        if(caracter.equals("VERDADERO")|caracter.equals("FALSO")){
+    public boolean esBoleano(String cadena){
+        if(cadena.equals("VERDADERO")|cadena.equals("FALSO")){
             return true;
         }else{
             return false;
         }
     }
     
-    public boolean esOperador(String caracter){
-        if(caracter.equals("VERDADERO")|caracter.equals("FALSO")){
+    public boolean esOperador(String cadena){
+        if(cadena.equals("VERDADERO")|cadena.equals("FALSO")){
             return true;
         }else{
             return false;
         }
     }
     
-    public String verificarTipo(int estado){
+    public String verificarTipo(int estado,String token){
         if(esEstadoValidado(estado)){
             if(estado==Estado.S1){
                 return "Numero";
@@ -116,7 +118,13 @@ public class Verificador {
             }else if(estado==Estado.S5){
                 return "Signo";
             }else if(estado==Estado.S7){
-                return "Cadena";
+                if(esPalabraReservada(token)){
+                    return "Palabra Reservada";
+                }else if(esBoleano(token)){
+                    return "Boolean";                    
+                }else{
+                    return "Cadena";
+                }
             }else if(estado==Estado.S10){
                 return "Caracter";
             }else if(estado==Estado.S11){
@@ -125,8 +133,6 @@ public class Verificador {
                 return "Comentario";
             }else if(estado==Estado.S16){
                 return "Signo De Agrupacion";
-            }else if(estado==Estado.S17){
-                return "Palabra Reservada";
             }else{
                 return "No Registrado";
             }
